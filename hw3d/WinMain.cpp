@@ -1,5 +1,18 @@
 #include <Windows.h>
 
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+
+	switch (msg)
+	{
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		break;
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
 int CALLBACK WinMain(
 	HINSTANCE	hInstance,
 	HINSTANCE	hPrevInstance,
@@ -13,7 +26,7 @@ int CALLBACK WinMain(
 	WNDCLASSEX wc = { 0 };
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = DefWindowProc;
+	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
@@ -44,12 +57,24 @@ int CALLBACK WinMain(
 
 	// Message handling
 	MSG msg;
+	BOOL gResult;
 	// Get message returns 0 when it receives a WM_QUIT message
-	while (GetMessage(&msg, nullptr, 0, 0) > 0) {
+	// return < 0 if there is a error
+	while ( (gResult = GetMessage(&msg, nullptr, 0, 0)) > 0) {
 
 		TranslateMessage(&msg);
 		// Send message to the WndProc function
 		DispatchMessage(&msg);
+	}
+
+	if (gResult == -1)
+	{
+		return -1;
+	}
+	else 
+	{
+		// wParam stores the PostQuitMessage exit code
+		return msg.wParam;
 	}
 
 	return 0;
