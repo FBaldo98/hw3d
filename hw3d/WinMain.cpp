@@ -42,7 +42,15 @@ int CALLBACK WinMain(
 	// Show the window
 	ShowWindow(hWnd, SW_SHOW);
 
-	while (true);
+	// Message handling
+	MSG msg;
+	// Get message returns 0 when it receives a WM_QUIT message
+	while (GetMessage(&msg, nullptr, 0, 0) > 0) {
+
+		TranslateMessage(&msg);
+		// Send message to the WndProc function
+		DispatchMessage(&msg);
+	}
 
 	return 0;
 }
