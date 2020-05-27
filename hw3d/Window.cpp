@@ -65,3 +65,41 @@ Window::~Window()
 {
 	DestroyWindow(hWnd);
 }
+
+LRESULT WINAPI Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	// Use create parameter passed in from CreateWindow() to store window class pointer
+	if (msg == WM_NCCREATE) {
+		// extract ptr to window class from creation data
+		// we passed it to the WinAPI when the window was created
+		const CREATESTRUCTW* const pCreate = reinterpret_cast<CREATESTRUCTW*>(lParam);
+		Window* const pWnd = static_cast<Window*>(pCreate->lpCreateParams);
+		// set WinAPI-managed user data to store ptr to Window class
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(pWnd));
+		// set message proc to normal (non-setup) handler now that everything is setup
+		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandeMsgThunk));
+		// forward message to window class handler
+		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+LRESULT WINAPI Window::HandeMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	// Retrieve the pointer to the window class
+	Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+	// Forward the message to the window class handler
+	return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+}
+
+LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
+{
+	switch (msg) {
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		break;
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
