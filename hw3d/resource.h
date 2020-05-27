@@ -2,7 +2,7 @@
 // File di inclusione generato con Microsoft Visual C++.
 // Utilizzato da hw3d.rc
 //
-#define IDI_APPICON                       101
+#define IDI_APPICON                     101
 
 // Next default values for new objects
 // 
