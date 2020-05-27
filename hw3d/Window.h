@@ -1,8 +1,20 @@
 #pragma once
 #include "BaldoWin.h"
+#include "BaldoException.h"
 
 class Window {
 private:
+	class Exception : public BaldoException {
+	public:
+		Exception(int line, const char* file, HRESULT hr) noexcept;
+		const char* what() const noexcept override;
+		virtual const char* GetType() const noexcept override;
+		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorString() const noexcept;
+	private:
+		HRESULT hr;
+	};
 	// singleton manages registration/cleanup of window class
 	class WindowClass {
 	public:
