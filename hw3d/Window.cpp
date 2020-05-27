@@ -36,3 +36,32 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 {
 	return wndClass.hInst;
 }
+
+//////////// WINDOW
+
+Window::Window(int width, int height, const wchar_t* name) noexcept
+{
+	// calculate window size based on desired client region size
+	RECT wr;
+	wr.left = 100;
+	wr.right = width + wr.left;
+	wr.top = 100;
+	wr.bottom = height + wr.top;
+	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+
+	// create the window
+	hWnd = CreateWindow(
+		WindowClass::GetName(), name,
+		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+		CW_USEDEFAULT, CW_USEDEFAULT,
+		wr.right - wr.left, wr.bottom - wr.top,
+		nullptr, nullptr,
+		WindowClass::GetInstance(), this);
+	// Show window
+	ShowWindow(hWnd, SW_SHOWDEFAULT);
+}
+
+Window::~Window()
+{
+	DestroyWindow(hWnd);
+}
