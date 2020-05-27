@@ -24,6 +24,9 @@
     <ClCompile Include="Window.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="BaldoException.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -33,6 +36,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="BaldoException.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
