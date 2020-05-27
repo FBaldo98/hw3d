@@ -12,6 +12,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
+	case WM_KEYDOWN:
+		if (wParam == 'F') {
+			SetWindowTextA(hWnd, "Respects");
+		}
+		break;
+	case WM_KEYUP:
+		if (wParam == 'F') {
+			SetWindowTextA(hWnd, "Dangerfield");
+		}
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
