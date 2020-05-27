@@ -26,15 +26,15 @@ int CALLBACK WinMain(
 	}
 	catch (const BaldoException& e)
 	{
-		MessageBox(nullptr, reinterpret_cast<LPCWSTR>(e.what()), reinterpret_cast<LPCWSTR>(e.GetType()), MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(const std::exception & e)
 	{
-		MessageBox(nullptr, reinterpret_cast<LPCWSTR>(e.what()), L"Standard exception", MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, e.what(), "Standard exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch (...)
 	{
-		MessageBox(nullptr, L"No details available", L"Standard exception", MB_OK | MB_ICONEXCLAMATION);
+		MessageBoxA(nullptr, "No details available", "Standard exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	return -1;
 }
