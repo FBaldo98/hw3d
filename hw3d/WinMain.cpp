@@ -1,7 +1,11 @@
 #include <Windows.h>
+#include "WindowsMessageMap.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+
+	static WindowsMessageMap mm;
+	OutputDebugStringA(mm(msg, lParam, wParam).c_str());
 
 	switch (msg)
 	{
@@ -14,10 +18,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 int CALLBACK WinMain(
-	HINSTANCE	hInstance,
-	HINSTANCE	hPrevInstance,
-	LPSTR		plCmdLine,
-	int			nCmdShow)
+	_In_ HINSTANCE		hInstance,
+	_In_opt_ HINSTANCE	hPrevInstance,
+	_In_ LPSTR			plCmdLine,
+	_In_ int			nCmdShow)
 {
 
 	const auto pClassName = L"hw3dwnd";
