@@ -1,4 +1,5 @@
 #include <Windows.h>
+#include <sstream>
 #include "WindowsMessageMap.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -13,6 +14,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
+		// Doesn't differentiate between upper and lowercase
 		if (wParam == 'F') {
 			SetWindowTextA(hWnd, "Respects");
 		}
@@ -21,6 +23,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		if (wParam == 'F') {
 			SetWindowTextA(hWnd, "Dangerfield");
 		}
+		break;
+	case WM_CHAR:
+	{
+		// Used for text input. Differentiate between upper and lower case
+		// It is posted by TranslateMessage
+		static std::string title;
+		title.push_back((char)wParam);
+		SetWindowTextA(hWnd, title.c_str());
+	}
+		break;
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		std::ostringstream oss;
+		oss << "(" << pt.x << ";" << pt.y << ")";
+		SetWindowTextA(hWnd, oss.str().c_str());
+	}
 		break;
 	}
 
