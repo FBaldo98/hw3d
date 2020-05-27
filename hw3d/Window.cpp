@@ -40,7 +40,7 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 
 //////////// WINDOW
 
-Window::Window(int width, int height, const wchar_t* name) noexcept
+Window::Window(int width, int height, const wchar_t* name)
 	: width(width), height(height)
 {
 	// calculate window size based on desired client region size
@@ -49,7 +49,10 @@ Window::Window(int width, int height, const wchar_t* name) noexcept
 	wr.right = width + wr.left;
 	wr.top = 100;
 	wr.bottom = height + wr.top;
-	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	if (FAILED(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)))
+	{
+		throw BHWND_LAST_EXCEPT();
+	}
 
 	// create the window
 	hWnd = CreateWindow(
@@ -59,6 +62,10 @@ Window::Window(int width, int height, const wchar_t* name) noexcept
 		wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr,
 		WindowClass::GetInstance(), this);
+	if (hWnd == nullptr)
+	{
+		throw BHWND_LAST_EXCEPT();
+	}
 	// Show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 }

@@ -30,7 +30,7 @@ private:
 		HINSTANCE hInst;
 	};
 public:
-	Window(int width, int height, const wchar_t* name) noexcept;
+	Window(int width, int height, const wchar_t* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator = (const Window&) = delete;
@@ -46,3 +46,4 @@ private:
 
 // error exception helper macro
 #define BHWND_EXCEPT( hr ) Window::Exception( __LINE__, __FILE__, hr )
+#define BHWND_LAST_EXCEPT() Window::Exception(__LINE__, __FILE__, GetLastError())
