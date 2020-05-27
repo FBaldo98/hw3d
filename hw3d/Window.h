@@ -43,3 +43,6 @@ private:
 	int height;
 	HWND hWnd;
 };
+
+// error exception helper macro
+#define BHWND_EXCEPT( hr ) Window::Exception( __LINE__, __FILE__, hr )
