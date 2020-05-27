@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "resource.h"
 #include <sstream>
 
 Window::WindowClass Window::WindowClass::wndClass;
@@ -15,11 +16,11 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hInstance = GetInstance();
 	wc.hIcon = nullptr;
 	wc.hCursor = nullptr;
-	wc.hIcon = nullptr;
+	wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_APPICON), IMAGE_ICON, 32, 32, 0));
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = GetName();
-	wc.hIconSm = nullptr;
+	wc.hIconSm = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_APPICON), IMAGE_ICON, 16, 16, 0));
 	RegisterClassEx(&wc);
 }
 
