@@ -50,7 +50,7 @@ Window::Window(int width, int height, const wchar_t* name)
 	wr.right = width + wr.left;
 	wr.top = 100;
 	wr.bottom = height + wr.top;
-	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE))
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 	{
 		throw BHWND_LAST_EXCEPT();
 	}
@@ -78,7 +78,7 @@ Window::~Window()
 
 void Window::SetTitle(const std::string title)
 {
-	if (SetWindowTextA(hWnd, title.c_str())) {
+	if (SetWindowTextA(hWnd, title.c_str()) == 0) {
 		throw BHWND_LAST_EXCEPT();
 	}
 }
