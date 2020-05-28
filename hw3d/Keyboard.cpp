@@ -96,3 +96,12 @@ void Keyboard::ClearState() noexcept
 {
     keystates.reset();
 }
+
+template<typename T>
+void Keyboard::TrimBuffer(std::queue<T>& buffer) noexcept
+{
+    while (buffer.size() > bufferSize)
+    {
+        buffer.pop();
+    }
+}
