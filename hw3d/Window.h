@@ -5,7 +5,7 @@
 #include "Mouse.h"
 
 class Window {
-private:
+public:
 	class Exception : public BaldoException {
 	public:
 		Exception(int line, const char* file, HRESULT hr) noexcept;
