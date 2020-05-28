@@ -106,17 +106,17 @@ LRESULT WINAPI Window::HandeMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
 	switch (msg) {
-	// We want to handle this message ourselves so our destructor get called
+		// We want to handle this message ourselves so our destructor get called
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
-	// Clear keystate when the window loses focus
+		// Clear keystate when the window loses focus
 	case WM_KILLFOCUS:
 		kbd.ClearState();
 		break;
-	///////////// KEYBOARD MESSAGES //////////////////////
+		///////////// KEYBOARD MESSAGES //////////////////////
 	case WM_KEYDOWN:
-	// Syskey commands need to be handled to track ALT key( VK_MENU ) and F10
+		// Syskey commands need to be handled to track ALT key( VK_MENU ) and F10
 	case WM_SYSKEYDOWN:
 		// Autorepeat filtering
 		// lParam bit 30 is 1 if the previous key pressed was the same key
@@ -131,7 +131,50 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_CHAR:
 		kbd.OnChar(static_cast<unsigned char>(wParam));
 		break;
-	///////////// END KEYBOARD MESSAGES ///////////////////
+		///////////// END KEYBOARD MESSAGES ///////////////////
+
+		/////////////// MOUSE MESSAGES ////////////////////////
+	case WM_MOUSEMOVE:
+	{
+		POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnMouseMove(pt.x, pt.y);
+	}
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_LBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(pt.x, pt.y);
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		if (GET_WHEEL_DELTA_WPARAM(wParam) > 0) {
+			mouse.OnWheelUp(pt.x, pt.y);
+		}
+		else if (GET_WHEEL_DELTA_WPARAM(wParam) < 0) {
+			mouse.OnWheelDown(pt.x, pt.y);
+		}
+		break;
+	}
+	/////////////// END MOUSE MESSAGES ///////////////////
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
