@@ -39,6 +39,9 @@
     <ClCompile Include="BaldoTimer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -66,6 +69,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="BaldoTimer.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
