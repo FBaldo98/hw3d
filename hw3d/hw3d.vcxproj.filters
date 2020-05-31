@@ -42,6 +42,9 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
+    <ClCompile Include="dxerr.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -74,6 +77,9 @@
     <ClInclude Include="Graphics.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="dxerr.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -84,5 +90,16 @@
     <Image Include="directx.ico">
       <Filter>File di risorse</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXGetErrorString.inl">
+      <Filter>File di intestazione</Filter>
+    </None>
+    <None Include="DXGetErrorDescription.inl">
+      <Filter>File di intestazione</Filter>
+    </None>
+    <None Include="DXTrace.inl">
+      <Filter>File di intestazione</Filter>
+    </None>
   </ItemGroup>
 </Project>
