@@ -30,12 +30,17 @@ Graphics::Graphics(HWND hWnd)
 	// For error checking of d3d functions
 	HRESULT hr;
 
+	UINT swapCreateFlags = 0u;
+#ifndef NDEBUG
+	swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
 	// Creates the device, front/back buffers, swap chain and rendering context
 	GFX_THROW_FAILED(D3D11CreateDeviceAndSwapChain(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
-		0,
+		swapCreateFlags,
 		nullptr,
 		0,
 		D3D11_SDK_VERSION,
