@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="dxerr">
+      <UniqueIdentifier>{ded8b52a-fcc6-4dd5-8da7-ac554482871e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{0b0bc83f-ddfc-45ab-ae9a-d91509afe74c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -42,11 +48,11 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="dxerr.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
     <ClCompile Include="DxgiInfoManager.cpp">
       <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="dxerr.cpp">
+      <Filter>dxerr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,11 +86,11 @@
     <ClInclude Include="Graphics.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="dxerr.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
     <ClInclude Include="DxgiInfoManager.h">
       <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="dxerr.h">
+      <Filter>dxerr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,14 +104,19 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DXGetErrorString.inl">
-      <Filter>File di intestazione</Filter>
-    </None>
     <None Include="DXGetErrorDescription.inl">
-      <Filter>File di intestazione</Filter>
+      <Filter>dxerr</Filter>
+    </None>
+    <None Include="DXGetErrorString.inl">
+      <Filter>dxerr</Filter>
     </None>
     <None Include="DXTrace.inl">
-      <Filter>File di intestazione</Filter>
+      <Filter>dxerr</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
