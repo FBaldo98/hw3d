@@ -139,7 +139,7 @@ void Graphics::DrawTestTriangle() {
 	const UINT offset = 0u;
 	pContext->IASetVertexBuffers(0u, 1u, &pVertexBuffer, &stride, &offset);
 
-	pContext->Draw(3u, 0u);
+	GFX_THROW_INFO_ONLY( pContext->Draw(3u, 0u) );
 }
 
 Graphics::HrException::HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
