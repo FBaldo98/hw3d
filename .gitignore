@@ -5,6 +5,9 @@
 *.userosscache
 *.sln.docstates
 
+# D3D Compiled Shader
+*.cso
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
